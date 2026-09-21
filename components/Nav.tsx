@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { usePathname } from 'next/navigation'
 import { navLinks, site } from '@/content/data'
 
 // Contacto is already the last item in navLinks — filter it out of the
@@ -11,25 +10,21 @@ import { navLinks, site } from '@/content/data'
 const mainLinks = navLinks.filter(l => l.href !== '/contacto')
 
 export default function Nav() {
-  const pathname = usePathname()
-  const isHome = pathname === '/'
   const [scrolled, setScrolled] = useState(false)
   const [drawerOpen, setDrawerOpen] = useState(false)
 
   useEffect(() => {
-    if (!isHome) return
     const onScroll = () => setScrolled(window.scrollY > 60)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [isHome])
+  }, [])
 
   useEffect(() => {
     document.body.style.overflow = drawerOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [drawerOpen])
 
-  const navClass = ['nav', !isHome ? 'light' : scrolled ? 'scrolled' : ''].filter(Boolean).join(' ')
-  const isDark = isHome && !scrolled
+  const navClass = scrolled ? 'nav scrolled' : 'nav light'
 
   return (
     <>
@@ -40,11 +35,11 @@ export default function Nav() {
             <Image
               src="/photos/logo.jpg"
               alt={site.fullName}
-              width={110}
-              height={44}
+              width={52}
+              height={52}
               priority
-              className={`nav-logo-img${isDark ? ' nav-logo-img--dark' : ''}`}
-              style={{ objectFit: 'contain', objectPosition: 'left center' }}
+              className="nav-logo-img"
+              style={{ objectFit: 'cover', borderRadius: '50%' }}
             />
           </Link>
         </div>

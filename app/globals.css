@@ -250,18 +250,12 @@ body {
 .nav-logo-link { display: block; line-height: 0; }
 
 .nav-logo-img {
-  height: 38px;
-  width: auto;
+  height: 44px;
+  width: 44px;
   display: block;
-  object-fit: contain;
-  object-position: left center;
-  transition: filter 0.3s;
-}
-
-/* On dark transparent nav: make logo white */
-.nav-logo-img--dark {
-  filter: brightness(0) invert(1);
-  opacity: 0.92;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--line);
 }
 
 /* Fallback text logo (used in drawer) */
@@ -423,7 +417,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 160px 64px 64px;
+  padding: 140px 64px 56px;
   position: relative;
 }
 

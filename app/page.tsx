@@ -17,36 +17,40 @@ export default function HomePage() {
     <>
       {/* ── HERO ── */}
       <section className="hero">
-        <div className="hero-bg">
-          <Image
-            src="/photos/garden-reception.jpg"
-            alt="Boda en Costa Brava"
-            fill
-            priority
-            style={{ objectFit: 'cover', objectPosition: 'center 40%' }}
-            sizes="100vw"
-          />
-        </div>
-        <div className="hero-overlay" />
-        <div className="hero-overlay-bottom" />
+        {/* Left: copy panel */}
+        <div className="hero-text">
+          <div>
+            <p className="hero-eyebrow">Wedding Planner · Costa Brava</p>
+            <h1 className="hero-display">
+              La boda<br />que habéis<br />imaginado
+            </h1>
+            <p className="hero-sub">
+              Bodas exclusivas en la Costa Brava, Girona y Barcelona. Alba cuida cada detalle para que el día más importante de vuestra vida sea exactamente como lo soñabais.
+            </p>
+            <div className="hero-ctas">
+              <Link href="/contacto" className="btn btn-wine">Hablemos de vuestra boda</Link>
+              <Link href="/bodas" className="btn btn-ghost-light">Ver bodas</Link>
+            </div>
+          </div>
 
-        <div className="hero-content">
-          <p className="hero-eyebrow">Wedding Planner · Costa Brava · Girona · Barcelona</p>
-          <h1 className="hero-display">
-            Memorias<br />que se vuelven<br />eternas
-          </h1>
-          <p className="hero-sub">
-            Bodas exclusivas pensadas para durar toda una vida. Cada detalle, cada momento, exactamente como lo imagináis.
-          </p>
-          <div className="hero-ctas">
-            <Link href="/contacto" className="btn btn-wine">Hablemos de vuestra boda</Link>
-            <Link href="/bodas" className="btn btn-ghost-light">Ver bodas</Link>
+          <div className="hero-foot">
+            <span className="hero-foot-loc">Costa Brava · Girona · Barcelona</span>
+            <div className="hero-foot-scroll">
+              <div className="hero-scroll-line" />
+              <span>Scroll</span>
+            </div>
           </div>
         </div>
 
-        <div className="hero-scroll">
-          <div className="hero-scroll-line" />
-          <span className="hero-scroll-text">Scroll</span>
+        {/* Right: photo */}
+        <div className="hero-media">
+          <Image
+            src="/photos/bride-stairs.jpg"
+            alt="Boda en Costa Brava"
+            fill
+            priority
+            sizes="54vw"
+          />
         </div>
       </section>
 

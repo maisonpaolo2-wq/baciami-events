@@ -2,8 +2,13 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { navLinks, site } from '@/content/data'
+
+// Contacto is already the last item in navLinks — filter it out of the
+// main bar to avoid duplication, then keep it only in the CTA button.
+const mainLinks = navLinks.filter(l => l.href !== '/contacto')
 
 export default function Nav() {
   const pathname = usePathname()
@@ -24,44 +29,46 @@ export default function Nav() {
   }, [drawerOpen])
 
   const navClass = ['nav', !isHome ? 'light' : scrolled ? 'scrolled' : ''].filter(Boolean).join(' ')
+  const isDark = isHome && !scrolled
 
   return (
     <>
       <header className={navClass}>
-        <div className="nav-left">
+        {/* ── LOGO LEFT ── */}
+        <div className="nav-brand">
+          <Link href="/" className="nav-logo-link" aria-label={site.fullName}>
+            <Image
+              src="/photos/logo.jpg"
+              alt={site.fullName}
+              width={110}
+              height={44}
+              priority
+              className={`nav-logo-img${isDark ? ' nav-logo-img--dark' : ''}`}
+              style={{ objectFit: 'contain', objectPosition: 'left center' }}
+            />
+          </Link>
+        </div>
+
+        {/* ── LINKS + CTA RIGHT ── */}
+        <div className="nav-right">
           <nav aria-label="Principal">
             <ul className="nav-links">
-              {navLinks.slice(0, 2).map(l => (
+              {mainLinks.map(l => (
                 <li key={l.href}>
                   <Link href={l.href}>{l.label}</Link>
                 </li>
               ))}
             </ul>
           </nav>
-        </div>
 
-        <div className="nav-logo-wrap">
-          <Link href="/" className="nav-logo">{site.fullName}</Link>
-        </div>
-
-        <div className="nav-right">
-          <nav aria-label="Secundaria" style={{ display: 'flex', alignItems: 'center', gap: 36 }}>
-            <ul className="nav-links">
-              {navLinks.slice(2).map(l => (
-                <li key={l.href}>
-                  <Link href={l.href}>{l.label}</Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <Link href="/contacto" className="nav-cta" style={{ marginLeft: 24 }}>
+          <Link href="/contacto" className="nav-cta">
             Hablemos
           </Link>
+
           <button
             className="nav-burger"
             aria-label="Abrir menú"
             onClick={() => setDrawerOpen(true)}
-            style={{ marginLeft: 16 }}
           >
             <span /><span /><span />
           </button>
@@ -77,7 +84,7 @@ export default function Nav() {
             aria-label="Cerrar menú"
             style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--on-dark-dim)', fontSize: 24 }}
           >
-            ✕
+            &#215;
           </button>
         </div>
         <ul className="drawer-links">
@@ -86,9 +93,6 @@ export default function Nav() {
               <Link href={l.href} onClick={() => setDrawerOpen(false)}>{l.label}</Link>
             </li>
           ))}
-          <li>
-            <Link href="/contacto" onClick={() => setDrawerOpen(false)}>Contacto</Link>
-          </li>
         </ul>
       </aside>
     </>
